@@ -1,13 +1,11 @@
-import { Button, Text } from "@mantine/core";
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { Button } from "@mantine/core";
+import { createFileRoute } from "@tanstack/react-router";
+import { Header } from "@/components/IndexComponents/Header/Header";
 
 const Home = () => {
-	const router = useRouter();
-	const state = Route.useLoaderData();
-
 	return (
 		<>
-			<Text>THIS IS MY HOME PAGE</Text>
+			<Header />
 			<Button>GO TO APP</Button>
 		</>
 	);
