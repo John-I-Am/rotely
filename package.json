@@ -23,6 +23,7 @@
 		"@mantine/form": "^8.3.1",
 		"@mantine/hooks": "^8.3.1",
 		"@mantine/notifications": "^8.3.1",
+		"@tabler/icons-react": "^3.35.0",
 		"@tanstack/react-router": "^1.131.49",
 		"@tanstack/react-start": "^1.131.49",
 		"dayjs": "^1.11.18",
