@@ -12,10 +12,14 @@ import {
 	Skeleton,
 	Textarea,
 	TextInput,
+	ThemeIcon,
 	Tooltip,
 } from "@mantine/core";
 
 export const theme = createTheme({
+	other: {
+		secondaryColor: "pink",
+	},
 	colors: {
 		"dark-navy": colorsTuple("#2c3143"),
 	},
@@ -52,6 +56,11 @@ export const theme = createTheme({
 			defaultProps: {
 				radius: "md",
 				loaderProps: { type: "dots" },
+			},
+		}),
+		ThemeIcon: ThemeIcon.extend({
+			defaultProps: {
+				radius: "md",
 			},
 		}),
 		Paper: Paper.extend({
