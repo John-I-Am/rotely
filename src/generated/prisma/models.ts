@@ -9,4 +9,7 @@
  */
 export type * from './models/Deck.ts'
 export type * from './models/User.ts'
+export type * from './models/Session.ts'
+export type * from './models/Account.ts'
+export type * from './models/Verification.ts'
 export type * from './commonInputTypes.ts'
