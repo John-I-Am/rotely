@@ -1,7 +1,7 @@
 import { Button, Text } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/IndexComponents/Header/Header";
-import { createUser, getUsers } from "@/features/login/api/users";
+import { createUser, getUsers } from "@/features/auth/api/users";
 import { Route as DashboardRoute } from "./app/dashboard";
 
 const Home = () => {

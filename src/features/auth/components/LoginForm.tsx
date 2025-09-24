@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 
 export const LoginForm = () => {
 	const navigate = useNavigate();
@@ -8,7 +8,7 @@ export const LoginForm = () => {
 	const handleLogin = async () => {
 		const { data, error } = await authClient.signUp.email(
 			{
-				email: "rootrrrr4frfffrrrt43b@root.com",
+				email: "hh@root.com",
 				password: "12345678",
 				name: "user name",
 				// callbackURL: "/",    callback not redirecting for some reason, use manual useNavigate hook

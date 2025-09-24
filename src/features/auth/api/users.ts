@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest } from "@tanstack/react-start/server";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth/auth";
 import prisma from "@/lib/prisma/prisma";
 
 export const getUsers = createServerFn({ method: "GET" }).handler(async () => {
@@ -23,6 +23,7 @@ export const getAuthUser = createServerFn({ method: "GET" }).handler(
 		const session = await auth.api.getSession({
 			headers: request.headers,
 		});
+		console.log(session?.user);
 		return session?.user;
 	},
 );
