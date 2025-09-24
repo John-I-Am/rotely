@@ -8,7 +8,7 @@ export const LoginForm = () => {
 	const handleLogin = async () => {
 		const { data, error } = await authClient.signUp.email(
 			{
-				email: "root@root.com",
+				email: "rootrrrr4frfffrrrt43b@root.com",
 				password: "12345678",
 				name: "user name",
 				// callbackURL: "/",    callback not redirecting for some reason, use manual useNavigate hook
