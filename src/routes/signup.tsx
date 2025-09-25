@@ -1,12 +1,12 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { getAuthUser } from "@/features/auth/api/users";
-import { LoginForm } from "@/features/auth/components/LoginForm/LoginForm";
+import { SignUpForm } from "@/features/auth/components/SignUpForm/SIgnUpForm";
 
-const RouteComponent = () => {
-	return <LoginForm />;
+const Signup = () => {
+	return <SignUpForm></SignUpForm>;
 };
 
-export const Route = createFileRoute("/login")({
+export const Route = createFileRoute("/signup")({
 	beforeLoad: async ({ location }) => {
 		if (await getAuthUser()) {
 			throw redirect({
@@ -17,5 +17,5 @@ export const Route = createFileRoute("/login")({
 			});
 		}
 	},
-	component: RouteComponent,
+	component: Signup,
 });

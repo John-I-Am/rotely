@@ -7,6 +7,7 @@ import {
 	Image,
 	Loader,
 	Paper,
+	PasswordInput,
 	rem,
 	ScrollArea,
 	Skeleton,
@@ -75,6 +76,12 @@ export const theme = createTheme({
 			},
 		}),
 		TextInput: TextInput.extend({
+			defaultProps: {
+				radius: "md",
+			},
+			styles: { error: { position: "absolute" } },
+		}),
+		PasswordInput: PasswordInput.extend({
 			defaultProps: {
 				radius: "md",
 			},
