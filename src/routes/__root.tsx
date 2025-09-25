@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 
 import "@mantine/core/styles.css";
+import "@/styles.css";
 
 import { MantineProvider, mantineHtmlProps } from "@mantine/core";
 import {
