@@ -11,15 +11,15 @@ import {
 	Title,
 } from "@mantine/core";
 import { hasLength, isNotEmpty, useForm } from "@mantine/form";
-import { useDisclosure } from "@mantine/hooks";
 import { Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { authClient } from "@/lib/auth/auth-client";
 import type { UserCredentials } from "../../types";
 import classes from "./SignUpForm.module.css";
 
 export const SignUpForm = () => {
 	const navigate = useNavigate();
-	const [loading, { toggle }] = useDisclosure();
+	const [pending, setPending] = useState<boolean>(false);
 
 	const form = useForm({
 		mode: "uncontrolled",
@@ -46,7 +46,7 @@ export const SignUpForm = () => {
 	});
 
 	const handleSignUp = async ({ email, password }: UserCredentials) => {
-		const { data, error } = await authClient.signUp.email(
+		await authClient.signUp.email(
 			{
 				email,
 				password: password,
@@ -55,15 +55,14 @@ export const SignUpForm = () => {
 			},
 			{
 				onRequest: () => {
-					toggle();
+					setPending(true);
 				},
 				onSuccess: () => {
 					navigate({ to: "/app/dashboard" });
 				},
 				onError: (ctx) => {
-					console.log(data);
-					console.log(ctx.error.message);
-					console.log(error);
+					form.setFieldError("email", ctx.error.message);
+					setPending(false);
 				},
 			},
 		);
@@ -113,7 +112,7 @@ export const SignUpForm = () => {
 					<Group justify="space-between" mt="lg">
 						<Checkbox label="Remember me" />
 					</Group>
-					<Button type="submit" fullWidth mt="xl" loading={loading}>
+					<Button type="submit" fullWidth mt="xl" loading={pending}>
 						Sign Up
 					</Button>
 				</form>
