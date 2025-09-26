@@ -8,5 +8,5 @@ type IconWrapper = {
 
 export const IconWrapper = ({ icon, stroke, size }: IconWrapper) => {
 	const Component = icon;
-	return <Component stroke={stroke ?? 1.5} size={size ?? 32} />;
+	return <Component stroke={stroke ?? 1.5} size={size ?? 26} />;
 };
