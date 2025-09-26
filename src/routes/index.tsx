@@ -5,8 +5,8 @@ import { createUser, getUsers } from "@/features/auth/api/users";
 import { Route as DashboardRoute } from "./app/dashboard";
 
 const Home = () => {
-	const users: any = Route.useLoaderData();
-	console.log(users);
+	// const users: any = Route.useLoaderData();
+	// console.log(users);
 
 	return (
 		<>
@@ -16,18 +16,18 @@ const Home = () => {
 				GO TO APP
 			</Button>
 			<Button onClick={() => createUser()}>Create User</Button>
-			<ul>
+			{/* <ul>
 				{users.map((user: any) => (
 					<li>{user.email}</li>
 				))}
-			</ul>
+			</ul> */}
 		</>
 	);
 };
 
 export const Route = createFileRoute("/")({
 	component: Home,
-	loader: () => {
-		return getUsers();
-	},
+	// loader: () => {
+	// 	return getUsers();
+	// },
 });

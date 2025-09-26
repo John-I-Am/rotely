@@ -16,8 +16,10 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AppStudyRouteImport } from './routes/app/study'
 import { Route as AppSettingsRouteImport } from './routes/app/settings'
 import { Route as AppDashboardRouteImport } from './routes/app/dashboard'
+import { Route as AppCollectionsRouteImport } from './routes/app/collections'
 import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
 
 const rootServerRouteImport = createServerRootRoute()
@@ -47,6 +49,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppStudyRoute = AppStudyRouteImport.update({
+  id: '/study',
+  path: '/study',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -55,6 +62,11 @@ const AppSettingsRoute = AppSettingsRouteImport.update({
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppCollectionsRoute = AppCollectionsRouteImport.update({
+  id: '/collections',
+  path: '/collections',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
@@ -68,16 +80,20 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/study': typeof AppStudyRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/study': typeof AppStudyRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
@@ -86,8 +102,10 @@ export interface FileRoutesById {
   '/app': typeof AppRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/study': typeof AppStudyRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
@@ -97,19 +115,31 @@ export interface FileRouteTypes {
     | '/app'
     | '/login'
     | '/signup'
+    | '/app/collections'
     | '/app/dashboard'
     | '/app/settings'
+    | '/app/study'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/app/dashboard' | '/app/settings' | '/app'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/app/collections'
+    | '/app/dashboard'
+    | '/app/settings'
+    | '/app/study'
+    | '/app'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/login'
     | '/signup'
+    | '/app/collections'
     | '/app/dashboard'
     | '/app/settings'
+    | '/app/study'
     | '/app/'
   fileRoutesById: FileRoutesById
 }
@@ -178,6 +208,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/study': {
+      id: '/app/study'
+      path: '/study'
+      fullPath: '/app/study'
+      preLoaderRoute: typeof AppStudyRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/settings': {
       id: '/app/settings'
       path: '/settings'
@@ -190,6 +227,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/app/dashboard'
       preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/collections': {
+      id: '/app/collections'
+      path: '/collections'
+      fullPath: '/app/collections'
+      preLoaderRoute: typeof AppCollectionsRouteImport
       parentRoute: typeof AppRouteRoute
     }
   }
@@ -207,14 +251,18 @@ declare module '@tanstack/react-start/server' {
 }
 
 interface AppRouteRouteChildren {
+  AppCollectionsRoute: typeof AppCollectionsRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppSettingsRoute: typeof AppSettingsRoute
+  AppStudyRoute: typeof AppStudyRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppCollectionsRoute: AppCollectionsRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppSettingsRoute: AppSettingsRoute,
+  AppStudyRoute: AppStudyRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
