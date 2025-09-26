@@ -1,14 +1,13 @@
-import { AppShell, Burger, Group, Text } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Group } from "@mantine/core";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { NavBurger } from "@/components/NavBurger/NavBurger";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { getAuthUser } from "@/features/auth/api/users";
 
 const AppLayoutComponent = () => {
-	const [opened, { toggle }] = useDisclosure();
-
 	return (
 		<Group w="100%">
+			<NavBurger />
 			<Navbar isDrawer={false} />
 			<Outlet />
 		</Group>

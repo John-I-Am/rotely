@@ -87,6 +87,7 @@ export const Navbar = ({ isDrawer }: NavbarProps) => {
 
 	return (
 		<Paper
+			visibleFrom={isDrawer ? undefined : "xs"}
 			component="nav"
 			className={cx(classes.navbar, {
 				[classes["navbar-collapsed"]]: expanded === false,

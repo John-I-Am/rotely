@@ -1,0 +1,30 @@
+.burger {
+  position: absolute;
+  top: calc(var(--mantine-spacing-sm) / 2);
+  left: calc(var(--mantine-spacing-sm) / 2);
+  transition-duration: 1s;
+  z-index: 10;
+  box-shadow: (var(--mantine-shadow-xl));
+  background-color: white;
+}
+
+.small {
+  transition-delay: 1s;
+  transform: scale(1);
+  opacity: 0.5;
+}
+
+.big {
+  transform: scale(2);
+  top: calc(var(--mantine-spacing-sm) * 2);
+  left: calc(var(--mantine-spacing-sm) * 2);
+}
+
+.content {
+  border-radius: 0 var(--mantine-radius-lg) var(--mantine-radius-lg) 0;
+  overflow: hidden;
+}
+
+.body {
+  margin: -2rem;
+}
