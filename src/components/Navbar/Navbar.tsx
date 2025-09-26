@@ -1,12 +1,10 @@
 import {
 	ActionIcon,
-	Box,
 	Group,
 	NavLink,
 	Paper,
 	ScrollArea,
 	Stack,
-	Tooltip,
 } from "@mantine/core";
 
 import {
@@ -97,21 +95,15 @@ export const Navbar = ({ isDrawer }: NavbarProps) => {
 				<Logo />
 
 				<Group align="baseline">
-					<Tooltip label={expanded ? "Unpin view" : "Pin view"}>
-						<ActionIcon
-							display={isDrawer ? "none" : ""}
-							variant={expanded ? "filled" : "outline"}
-							aria-label={expanded ? "pin-nav" : "unpin-nav"}
-							onClick={() => setExpanded(!expanded)}
-						>
-							{expanded ? <IconPinnedFilled /> : <IconPin />}
-						</ActionIcon>
-					</Tooltip>
-					<Tooltip label="Toggle Theme">
-						<Box>
-							<ThemeSwitch />
-						</Box>
-					</Tooltip>
+					<ActionIcon
+						display={isDrawer ? "none" : ""}
+						variant={expanded ? "filled" : "outline"}
+						aria-label={expanded ? "pin-nav" : "unpin-nav"}
+						onClick={() => setExpanded(!expanded)}
+					>
+						{expanded ? <IconPinnedFilled /> : <IconPin />}
+					</ActionIcon>
+					<ThemeSwitch />
 				</Group>
 			</Group>
 
