@@ -6,7 +6,7 @@ import {
 	ScrollArea,
 	Stack,
 } from "@mantine/core";
-
+import { useElementSize } from "@mantine/hooks";
 import {
 	IconChalkboard,
 	IconDoorExit,
@@ -16,12 +16,12 @@ import {
 	IconPinnedFilled,
 	IconSettings,
 } from "@tabler/icons-react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import cx from "clsx";
-import { type JSX, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
 import { authClient } from "@/lib/auth/auth-client";
-import { Route as CollectionsRoute } from "@/routes/app/collections";
 import { Route as DashboardRoute } from "@/routes/app/dashboard";
+import { Route as DecksRoute } from "@/routes/app/decks";
 import { Route as SettingsRoute } from "@/routes/app/settings";
 import { Route as StudyRoute } from "@/routes/app/study";
 import { IconWrapper } from "../IconWrapper/IconWrapper";
@@ -48,9 +48,19 @@ const navItems: NavItem[] = [
 		link: DashboardRoute.to,
 	},
 	{
-		label: "Collections",
+		label: "Decks",
 		icon: <IconWrapper icon={IconLibrary} />,
-		link: CollectionsRoute.to,
+		link: DecksRoute.to,
+		links: [
+			{
+				label: "My Decks",
+				link: `${DecksRoute.to}?shared=false`, // replace with search params api
+			},
+			{
+				label: "Community Decks",
+				link: `${DecksRoute.to}?shared=true`, // replace with search params api
+			},
+		],
 	},
 	{
 		label: "Settings",
@@ -66,6 +76,20 @@ type NavbarProps = {
 export const Navbar = ({ isDrawer }: NavbarProps) => {
 	const navigate = useNavigate();
 	const [expanded, setExpanded] = useState<boolean>(true);
+	const [showSub, setShowSub] = useState<boolean>(false);
+	const { ref, width } = useElementSize();
+
+	// probably should use Tanstack's search params apis to set active sublinks instead of explicitly matching the entire url,
+	// however i can't get it to work properly at the moment.
+	// possibility BETA bug
+	const location = useLocation();
+
+	// 240 is the width of the navbar in px. This code closes subnavs when the navbar is not expanded.
+	useEffect(() => {
+		if (width < 240 && showSub) {
+			setShowSub(false);
+		}
+	}, [width, showSub]);
 
 	const links = navItems.map((item: NavItem) => (
 		<NavLink
@@ -79,12 +103,35 @@ export const Navbar = ({ isDrawer }: NavbarProps) => {
 			href={item.link}
 			label={item.label}
 			leftSection={item.icon}
+			onChange={() => setShowSub(!showSub)}
+			opened={showSub}
 			variant="filled"
-		></NavLink>
+		>
+			{item.links?.map((subItem: NavItem) => (
+				<NavLink
+					classNames={{
+						root: classes.link,
+						label: classes["link-label"],
+					}}
+					className={cx(classes["sub-link"], classes["link-label"], {
+						[classes["sub-link-active"]]: location.href === subItem.link,
+					})}
+					component={Link}
+					to={subItem.link}
+					key={subItem.label}
+					href={subItem.link}
+					label={subItem.label}
+					leftSection={subItem.icon}
+					variant="subtle"
+					active={location.href === subItem.link}
+				></NavLink>
+			))}
+		</NavLink>
 	));
 
 	return (
 		<Paper
+			ref={ref}
 			visibleFrom={isDrawer ? undefined : "xs"}
 			component="nav"
 			className={cx(classes.navbar, {

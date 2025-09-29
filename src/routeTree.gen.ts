@@ -18,8 +18,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as AppStudyRouteImport } from './routes/app/study'
 import { Route as AppSettingsRouteImport } from './routes/app/settings'
+import { Route as AppDecksRouteImport } from './routes/app/decks'
 import { Route as AppDashboardRouteImport } from './routes/app/dashboard'
-import { Route as AppCollectionsRouteImport } from './routes/app/collections'
 import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
 
 const rootServerRouteImport = createServerRootRoute()
@@ -59,14 +59,14 @@ const AppSettingsRoute = AppSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppDecksRoute = AppDecksRouteImport.update({
+  id: '/decks',
+  path: '/decks',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => AppRouteRoute,
-} as any)
-const AppCollectionsRoute = AppCollectionsRouteImport.update({
-  id: '/collections',
-  path: '/collections',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
@@ -80,8 +80,8 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/app/decks': typeof AppDecksRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/study': typeof AppStudyRoute
   '/app/': typeof AppIndexRoute
@@ -90,8 +90,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/app/decks': typeof AppDecksRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/study': typeof AppStudyRoute
   '/app': typeof AppIndexRoute
@@ -102,8 +102,8 @@ export interface FileRoutesById {
   '/app': typeof AppRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/app/decks': typeof AppDecksRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/study': typeof AppStudyRoute
   '/app/': typeof AppIndexRoute
@@ -115,8 +115,8 @@ export interface FileRouteTypes {
     | '/app'
     | '/login'
     | '/signup'
-    | '/app/collections'
     | '/app/dashboard'
+    | '/app/decks'
     | '/app/settings'
     | '/app/study'
     | '/app/'
@@ -125,8 +125,8 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/signup'
-    | '/app/collections'
     | '/app/dashboard'
+    | '/app/decks'
     | '/app/settings'
     | '/app/study'
     | '/app'
@@ -136,8 +136,8 @@ export interface FileRouteTypes {
     | '/app'
     | '/login'
     | '/signup'
-    | '/app/collections'
     | '/app/dashboard'
+    | '/app/decks'
     | '/app/settings'
     | '/app/study'
     | '/app/'
@@ -222,18 +222,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/decks': {
+      id: '/app/decks'
+      path: '/decks'
+      fullPath: '/app/decks'
+      preLoaderRoute: typeof AppDecksRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/dashboard': {
       id: '/app/dashboard'
       path: '/dashboard'
       fullPath: '/app/dashboard'
       preLoaderRoute: typeof AppDashboardRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
-    '/app/collections': {
-      id: '/app/collections'
-      path: '/collections'
-      fullPath: '/app/collections'
-      preLoaderRoute: typeof AppCollectionsRouteImport
       parentRoute: typeof AppRouteRoute
     }
   }
@@ -251,16 +251,16 @@ declare module '@tanstack/react-start/server' {
 }
 
 interface AppRouteRouteChildren {
-  AppCollectionsRoute: typeof AppCollectionsRoute
   AppDashboardRoute: typeof AppDashboardRoute
+  AppDecksRoute: typeof AppDecksRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppStudyRoute: typeof AppStudyRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
-  AppCollectionsRoute: AppCollectionsRoute,
   AppDashboardRoute: AppDashboardRoute,
+  AppDecksRoute: AppDecksRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppStudyRoute: AppStudyRoute,
   AppIndexRoute: AppIndexRoute,
