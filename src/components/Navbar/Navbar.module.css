@@ -7,6 +7,8 @@
   flex: 0 0 auto;
   transition: width 0.5s ease;
   border-radius: 0 var(--mantine-radius-lg) var(--mantine-radius-lg) 0;
+  position: sticky;
+  top: 0;
 }
 
 .navbar-collapsed {

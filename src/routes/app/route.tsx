@@ -1,4 +1,4 @@
-import { Box, Group } from "@mantine/core";
+import { Container, Group } from "@mantine/core";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { NavBurger } from "@/components/NavBurger/NavBurger";
 import { Navbar } from "@/components/Navbar/Navbar";
@@ -9,9 +9,9 @@ const AppLayoutComponent = () => {
 		<Group w="100%" align="flex-start" gap={0}>
 			<NavBurger />
 			<Navbar isDrawer={false} />
-			<Box w="100%" h="100%" p="md">
+			<Container maw="100%" h="100%" p={{ base: "md", md: "xl" }}>
 				<Outlet />
-			</Box>
+			</Container>
 		</Group>
 	);
 };
