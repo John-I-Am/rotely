@@ -9,7 +9,7 @@ const AppLayoutComponent = () => {
 		<Group w="100%" align="flex-start" gap={0}>
 			<NavBurger />
 			<Navbar isDrawer={false} />
-			<Container maw="100%" h="100%" p={{ base: "md", md: "xl" }}>
+			<Container maw="100%" w="100%" h="100%" p={{ base: "md", md: "xl" }}>
 				<Outlet />
 			</Container>
 		</Group>
