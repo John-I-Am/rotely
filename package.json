@@ -12,6 +12,7 @@
 		"lint": "biome lint",
 		"lint:write": "biome lint --write",
 		"lint:check": "biome ci",
+		"db:format": "prisma format",
 		"db:sync": "prisma db push",
 		"seed": "tsx src/lib/prisma/seed.ts"
 	},
