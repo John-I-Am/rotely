@@ -55,7 +55,6 @@ export const DeckDisplay = ({ id, title, description }: DeckDisplayProps) => {
 							component={Link}
 							to={DeckRouter.to}
 							params={{ deckId: id } as any}
-							onClick={() => console.log(id)}
 							aria-label="Edit deck"
 						>
 							<IconWrapper icon={IconEdit} size={20} />
