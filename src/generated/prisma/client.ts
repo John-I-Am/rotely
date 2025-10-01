@@ -49,6 +49,11 @@ path.join(process.cwd(), "src/generated/prisma/libquery_engine-darwin-arm64.dyli
  */
 export type Deck = Prisma.DeckModel
 /**
+ * Model Card
+ * 
+ */
+export type Card = Prisma.CardModel
+/**
  * Model User
  * 
  */

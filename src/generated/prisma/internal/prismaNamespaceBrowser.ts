@@ -20,6 +20,7 @@ export type * from './prismaNamespace.ts'
 export const Decimal = runtime.Decimal
 export const ModelName = {
   Deck: 'Deck',
+  Card: 'Card',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -46,12 +47,25 @@ export const DeckScalarFieldEnum = {
   title: 'title',
   description: 'description',
   createdAt: 'createdAt',
-  content: 'content',
   published: 'published',
   authorId: 'authorId'
 } as const
 
 export type DeckScalarFieldEnum = (typeof DeckScalarFieldEnum)[keyof typeof DeckScalarFieldEnum]
+
+
+export const CardScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  level: 'level',
+  reviewedAt: 'reviewedAt',
+  reviewAt: 'reviewAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deckId: 'deckId'
+} as const
+
+export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -120,6 +134,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -134,4 +155,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

@@ -18,12 +18,24 @@ model Deck {
   title       String   @default("untitled")
   description String?
   createdAt   DateTime @default(now()) @db.Timestamp(6)
-  content     String?
+  cards       Card[]
   published   Boolean  @default(false)
   authorId    String
   author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("deck")
+}
+
+model Card {
+  id         String     @id @default(cuid())
+  content    Json
+  level      Int        @default(1)
+  reviewedAt DateTime[]
+  reviewAt   DateTime   @default(now())
+  createdAt  DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt  DateTime   @default(now()) @updatedAt
+  deckId     String
+  deck       Deck       @relation(fields: [deckId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model User {

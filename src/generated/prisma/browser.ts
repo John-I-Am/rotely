@@ -22,6 +22,11 @@ export * from './enums.ts';
  */
 export type Deck = Prisma.DeckModel
 /**
+ * Model Card
+ * 
+ */
+export type Card = Prisma.CardModel
+/**
  * Model User
  * 
  */
