@@ -9,14 +9,12 @@ export const Route = createFileRoute("/app/decks_/$deckId")({
 
 function RouteComponent() {
 	const { deckId } = Route.useParams();
-	const { title, description }: any = Route.useLoaderData();
+	const { title, description }: { title: string; description: string } =
+		Route.useLoaderData();
 
 	return (
 		<div>
 			<DeckEditor id={deckId} title={title} description={description} />
-			Hello DECK of id ${deckId}
 		</div>
 	);
 }
-
-// cmg1ukolg000noo3mcky279uc
