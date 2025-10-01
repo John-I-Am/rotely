@@ -56,6 +56,7 @@ export const updateDeck = createServerFn({ method: "POST" })
 			},
 			data: {
 				title: data.title,
+				description: data.description,
 			},
 		});
 

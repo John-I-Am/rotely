@@ -6,5 +6,6 @@ export const DeckTitleSchema = z.object({
 
 export const DeckUpdateSchema = z.object({
 	id: z.cuid(),
-	title: z.string().max(255),
+	title: z.string().max(12),
+	description: z.string().max(255),
 });
