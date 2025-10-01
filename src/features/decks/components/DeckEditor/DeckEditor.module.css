@@ -1,0 +1,9 @@
+.title {
+  font-size: large;
+  font-weight: 700;
+  border: none;
+}
+
+.form {
+  padding: var(--mantine-spacing-md);
+}

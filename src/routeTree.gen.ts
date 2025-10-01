@@ -20,6 +20,7 @@ import { Route as AppStudyRouteImport } from './routes/app/study'
 import { Route as AppSettingsRouteImport } from './routes/app/settings'
 import { Route as AppDecksRouteImport } from './routes/app/decks'
 import { Route as AppDashboardRouteImport } from './routes/app/dashboard'
+import { Route as AppDecksDeckIdRouteImport } from './routes/app/decks_.$deckId'
 import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
 
 const rootServerRouteImport = createServerRootRoute()
@@ -69,6 +70,11 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppDecksDeckIdRoute = AppDecksDeckIdRouteImport.update({
+  id: '/decks_/$deckId',
+  path: '/decks/$deckId',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/app/settings': typeof AppSettingsRoute
   '/app/study': typeof AppStudyRoute
   '/app/': typeof AppIndexRoute
+  '/app/decks/$deckId': typeof AppDecksDeckIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/app/settings': typeof AppSettingsRoute
   '/app/study': typeof AppStudyRoute
   '/app': typeof AppIndexRoute
+  '/app/decks/$deckId': typeof AppDecksDeckIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/app/settings': typeof AppSettingsRoute
   '/app/study': typeof AppStudyRoute
   '/app/': typeof AppIndexRoute
+  '/app/decks_/$deckId': typeof AppDecksDeckIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/app/study'
     | '/app/'
+    | '/app/decks/$deckId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/app/study'
     | '/app'
+    | '/app/decks/$deckId'
   id:
     | '__root__'
     | '/'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/app/study'
     | '/app/'
+    | '/app/decks_/$deckId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -236,6 +248,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/decks_/$deckId': {
+      id: '/app/decks_/$deckId'
+      path: '/decks/$deckId'
+      fullPath: '/app/decks/$deckId'
+      preLoaderRoute: typeof AppDecksDeckIdRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
   }
 }
 declare module '@tanstack/react-start/server' {
@@ -256,6 +275,7 @@ interface AppRouteRouteChildren {
   AppSettingsRoute: typeof AppSettingsRoute
   AppStudyRoute: typeof AppStudyRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppDecksDeckIdRoute: typeof AppDecksDeckIdRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
@@ -264,6 +284,7 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppSettingsRoute: AppSettingsRoute,
   AppStudyRoute: AppStudyRoute,
   AppIndexRoute: AppIndexRoute,
+  AppDecksDeckIdRoute: AppDecksDeckIdRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(

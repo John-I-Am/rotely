@@ -8,16 +8,18 @@ import {
 	Tooltip,
 } from "@mantine/core";
 import { IconEdit, IconPacman, IconTrash } from "@tabler/icons-react";
-import { useRouter } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { IconWrapper } from "@/components/IconWrapper/IconWrapper";
+import { Route as DeckRouter } from "@/routes/app/decks_.$deckId";
 import { deleteDeck } from "../../api/decks";
 
 type DeckDisplayProps = {
 	id: string;
 	title: string;
+	description: string;
 };
-export const DeckDisplay = ({ id, title }: DeckDisplayProps) => {
+export const DeckDisplay = ({ id, title, description }: DeckDisplayProps) => {
 	const router = useRouter();
 
 	// surely theres a better way to handle pendingStates?
@@ -39,16 +41,10 @@ export const DeckDisplay = ({ id, title }: DeckDisplayProps) => {
 			</Group>
 			<Stack gap="xs">
 				<Text size="lg" fw={700} lineClamp={1}>
-					This is where my Title will go This is where my Title will go This is
-					where my Title will go This is where my Title will go
+					{title}
 				</Text>
 				<Text size="sm" lineClamp={4}>
-					This is where my descriptions will go. This is not implemented yet.
-					This is where my descriptions will go. This is not implemented yet.
-					This is where my descriptions will go. This is not implemented yet.
-					This is where my descriptions will go. This is not implemented yet.
-					This is where my descriptions will go. This is not implemented yet.
-					This is where my descriptions will go. This is not implemented yet.
+					{description}
 				</Text>
 			</Stack>
 
@@ -56,7 +52,10 @@ export const DeckDisplay = ({ id, title }: DeckDisplayProps) => {
 				<Group>
 					<Tooltip label="Edit">
 						<ActionIcon
-							onClick={() => console.log("not yet implemented")}
+							component={Link}
+							to={DeckRouter.to}
+							params={{ deckId: id } as any}
+							onClick={() => console.log(id)}
 							aria-label="Edit deck"
 						>
 							<IconWrapper icon={IconEdit} size={20} />

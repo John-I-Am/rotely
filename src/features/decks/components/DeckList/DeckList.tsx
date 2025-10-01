@@ -39,7 +39,12 @@ export const DeckList = ({ decks }: DeckListProps) => {
 			</Group>
 			<SimpleGrid cols={{ base: 1, xs: 2, md: 3, lg: 4 }}>
 				{filteredDecks.map((deck: Deck) => (
-					<DeckDisplay key={deck.id} id={deck.id} title={deck.title} />
+					<DeckDisplay
+						key={deck.id}
+						id={deck.id}
+						title={deck.title}
+						description={deck.description ?? ""}
+					/>
 				))}
 			</SimpleGrid>
 		</Stack>

@@ -44,9 +44,10 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const DeckScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  description: 'description',
   createdAt: 'createdAt',
   content: 'content',
-  public: 'public',
+  published: 'published',
   authorId: 'authorId'
 } as const
 
