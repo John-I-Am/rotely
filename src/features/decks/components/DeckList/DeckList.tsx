@@ -1,6 +1,6 @@
 import { Button, Group, SimpleGrid, Stack, TextInput } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { useRouter } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { IconWrapper } from "@/components/IconWrapper/IconWrapper";
 import type { Deck } from "@/generated/prisma/client";
@@ -12,7 +12,8 @@ type DeckListProps = {
 };
 
 export const DeckList = ({ decks }: DeckListProps) => {
-	const router = useRouter();
+	const [pending, setPending] = useState<boolean>(false);
+	const navigate = useNavigate({ from: "/app/decks" });
 
 	const [searchTerm, setSearchTerm] = useState<string>("");
 	const filteredDecks = decks.filter((deck: Deck) =>
@@ -20,16 +21,23 @@ export const DeckList = ({ decks }: DeckListProps) => {
 	);
 
 	const handleCreate = async () => {
-		await createDeck({
-			data: { title: Math.random().toString(36).slice(2, 10) },
+		setPending(true);
+		const newDeck = await createDeck({
+			data: { title: "untitled" },
 		});
-		router.invalidate();
+
+		navigate({
+			to: "/app/decks/$deckId",
+			params: { deckId: newDeck?.id } as any,
+		});
 	};
 
 	return (
 		<Stack>
 			<Group>
-				<Button onClick={() => handleCreate()}>New Deck</Button>
+				<Button loading={pending} onClick={() => handleCreate()}>
+					New Deck
+				</Button>
 				<TextInput
 					value={searchTerm}
 					onChange={(event) => setSearchTerm(event.currentTarget.value)}
