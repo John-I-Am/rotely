@@ -2,8 +2,6 @@
   font-size: large;
   font-weight: 700;
   border: none;
+  padding-left: var(--mantine-spacing-md);
 }
 
-.form {
-  padding: var(--mantine-spacing-md);
-}

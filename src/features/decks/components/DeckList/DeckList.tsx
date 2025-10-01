@@ -43,7 +43,7 @@ export const DeckList = ({ decks }: DeckListProps) => {
 						key={deck.id}
 						id={deck.id}
 						title={deck.title}
-						description={deck.description ?? ""}
+						description={deck?.description ?? ""}
 					/>
 				))}
 			</SimpleGrid>

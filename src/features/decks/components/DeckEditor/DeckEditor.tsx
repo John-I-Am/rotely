@@ -1,5 +1,6 @@
 import { Group, Loader, Stack, Text, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useRouter } from "@tanstack/react-router";
 import { zodResolver } from "mantine-form-zod-resolver";
 import { useState } from "react";
 import { z } from "zod";
@@ -13,6 +14,7 @@ type DeckEditorProps = {
 };
 
 export const DeckEditor = ({ id, title, description }: DeckEditorProps) => {
+	const router = useRouter();
 	const [pending, setPending] = useState<boolean>(false);
 
 	const formSchema = z.object({
@@ -29,33 +31,26 @@ export const DeckEditor = ({ id, title, description }: DeckEditorProps) => {
 		validate: zodResolver(formSchema),
 	});
 
-	type FormInput = z.infer<typeof formSchema>;
+	const handleOnSubmit = async () => {
+		const { title, description } = form.getValues();
 
-	const handleOnSubmit = ({ title, description }: FormInput) => {
-		// form.setFieldValue("title", title);
-		// form.setFieldValue("description", description);
-
-		form.onSubmit(async () => {
-			setPending(true);
-			await updateDeck({ data: { id, title } }).then(() => {
-				setPending(false);
-			});
-		})();
+		setPending(true);
+		await updateDeck({ data: { id, title, description } }).then(() => {
+			setPending(false);
+		});
+		router.invalidate();
 	};
 
 	return (
-		<form
-			onChange={form.onSubmit((values) => handleOnSubmit(values))}
-			className={classes.form}
-		>
+		// Bypasses form.onSubmit, which skips validation and makes useForm a bit pointless.
+		// Not sure how else to imeplement saving form on every change.
+		<form onChange={() => handleOnSubmit()}>
 			<Group pb="md">
 				<TextInput
 					{...form.getInputProps("title")}
 					classNames={{
 						input: classes.title,
 					}}
-					size=""
-					// onChange={({ target }) => handleOnSubmit("title", target.value)}
 					variant="unstyled"
 					aria-label="Deck Title"
 					maxLength={12}
@@ -76,13 +71,12 @@ export const DeckEditor = ({ id, title, description }: DeckEditorProps) => {
 
 			<Textarea
 				{...form.getInputProps("description")}
-				// onChange={({ target }) => handleOnSubmit("description", target.value)}
 				variant="filled"
-				aria-label="Description"
+				aria-label="Deck Description"
 				maxLength={255}
 				placeholder="About..."
-				w="100%"
-				rows={5}
+				radius="lg"
+				rows={4}
 			/>
 		</form>
 	);
