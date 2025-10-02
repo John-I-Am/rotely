@@ -7,6 +7,8 @@
  *
  * 🟢 You can import this file directly.
  */
+
+import type * as PJTG from '../pjtg';
 import type * as runtime from "@prisma/client/runtime/library"
 import type * as $Enums from "../enums.ts"
 import type * as Prisma from "../internal/prismaNamespace.ts"
@@ -190,7 +192,7 @@ export type CardGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type CardGroupByOutputType = {
   id: string
-  content: runtime.JsonValue
+  content: PrismaJson.CardContentType
   level: number
   reviewedAt: Date[]
   reviewAt: Date
@@ -293,7 +295,7 @@ export type CardScalarWhereWithAggregatesInput = {
 
 export type CardCreateInput = {
   id?: string
-  content: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content: PrismaJson.CardContentType
   level?: number
   reviewedAt?: Prisma.CardCreatereviewedAtInput | Date[] | string[]
   reviewAt?: Date | string
@@ -304,7 +306,7 @@ export type CardCreateInput = {
 
 export type CardUncheckedCreateInput = {
   id?: string
-  content: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content: PrismaJson.CardContentType
   level?: number
   reviewedAt?: Prisma.CardCreatereviewedAtInput | Date[] | string[]
   reviewAt?: Date | string
@@ -315,7 +317,7 @@ export type CardUncheckedCreateInput = {
 
 export type CardUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content?: PrismaJson.CardContentType
   level?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.CardUpdatereviewedAtInput | Date[] | string[]
   reviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -326,7 +328,7 @@ export type CardUpdateInput = {
 
 export type CardUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content?: PrismaJson.CardContentType
   level?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.CardUpdatereviewedAtInput | Date[] | string[]
   reviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -337,7 +339,7 @@ export type CardUncheckedUpdateInput = {
 
 export type CardCreateManyInput = {
   id?: string
-  content: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content: PrismaJson.CardContentType
   level?: number
   reviewedAt?: Prisma.CardCreatereviewedAtInput | Date[] | string[]
   reviewAt?: Date | string
@@ -348,7 +350,7 @@ export type CardCreateManyInput = {
 
 export type CardUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content?: PrismaJson.CardContentType
   level?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.CardUpdatereviewedAtInput | Date[] | string[]
   reviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -358,7 +360,7 @@ export type CardUpdateManyMutationInput = {
 
 export type CardUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content?: PrismaJson.CardContentType
   level?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.CardUpdatereviewedAtInput | Date[] | string[]
   reviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -483,7 +485,7 @@ export type CardUpdatereviewedAtInput = {
 
 export type CardCreateWithoutDeckInput = {
   id?: string
-  content: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content: PrismaJson.CardContentType
   level?: number
   reviewedAt?: Prisma.CardCreatereviewedAtInput | Date[] | string[]
   reviewAt?: Date | string
@@ -493,7 +495,7 @@ export type CardCreateWithoutDeckInput = {
 
 export type CardUncheckedCreateWithoutDeckInput = {
   id?: string
-  content: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content: PrismaJson.CardContentType
   level?: number
   reviewedAt?: Prisma.CardCreatereviewedAtInput | Date[] | string[]
   reviewAt?: Date | string
@@ -543,7 +545,7 @@ export type CardScalarWhereInput = {
 
 export type CardCreateManyDeckInput = {
   id?: string
-  content: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content: PrismaJson.CardContentType
   level?: number
   reviewedAt?: Prisma.CardCreatereviewedAtInput | Date[] | string[]
   reviewAt?: Date | string
@@ -553,7 +555,7 @@ export type CardCreateManyDeckInput = {
 
 export type CardUpdateWithoutDeckInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content?: PrismaJson.CardContentType
   level?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.CardUpdatereviewedAtInput | Date[] | string[]
   reviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -563,7 +565,7 @@ export type CardUpdateWithoutDeckInput = {
 
 export type CardUncheckedUpdateWithoutDeckInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content?: PrismaJson.CardContentType
   level?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.CardUpdatereviewedAtInput | Date[] | string[]
   reviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -573,7 +575,7 @@ export type CardUncheckedUpdateWithoutDeckInput = {
 
 export type CardUncheckedUpdateManyWithoutDeckInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  content?: PrismaJson.CardContentType
   level?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.CardUpdatereviewedAtInput | Date[] | string[]
   reviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -648,7 +650,10 @@ export type $CardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    content: runtime.JsonValue
+    /**
+     * [CardContentType]
+     */
+    content: PrismaJson.CardContentType
     level: number
     reviewedAt: Date[]
     reviewAt: Date

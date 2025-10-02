@@ -13,6 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator json {
+  provider  = "prisma-json-types-generator"
+  namespace = "PrismaJson"
+  allowAny  = false
+}
+
 model Deck {
   id          String   @id @default(cuid())
   title       String   @default("untitled")
@@ -28,6 +34,7 @@ model Deck {
 
 model Card {
   id         String     @id @default(cuid())
+  /// [CardContentType]
   content    Json
   level      Int        @default(1)
   reviewedAt DateTime[]

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { CardTable } from "@/features/cards/components/CardTable/CardTable";
 import { getDeck } from "@/features/decks/api/decks";
 import { DeckEditor } from "@/features/decks/components/DeckEditor/DeckEditor";
 
@@ -15,6 +16,7 @@ function RouteComponent() {
 	return (
 		<div>
 			<DeckEditor id={deckId} title={title} description={description} />
+			<CardTable deckId={deckId} />
 		</div>
 	);
 }
