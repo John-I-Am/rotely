@@ -1,23 +1,28 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getAuthUser } from "@/features/auth/api/users";
+import type { Deck } from "@/generated/prisma/client";
 import prisma from "@/lib/prisma/prisma";
 import { cuidSchema } from "@/lib/zod/schemas";
+import type { DeckWithCards } from "../types";
 import { DeckTitleSchema, DeckUpdateSchema } from "../utils/schemas";
 
-export const getAllDecks = createServerFn({ method: "GET" }).handler(
-	async () => {
+export const getAllDecks = createServerFn({ method: "GET" })
+	.validator((data: { includeCards: boolean }) => data)
+	.handler(async ({ data }) => {
 		const user = await getAuthUser();
 		if (!user) return null; // should throw or redirect - leave it for now
 
-		const decks = await prisma.deck.findMany({
+		const decks: Deck[] | DeckWithCards[] = await prisma.deck.findMany({
 			where: {
 				authorId: user.id,
+			},
+			include: {
+				cards: data.includeCards,
 			},
 		});
 
 		return decks;
-	},
-);
+	});
 
 export const getDeck = createServerFn({ method: "GET" })
 	.validator((data) => cuidSchema.parse(data))

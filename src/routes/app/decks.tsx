@@ -20,7 +20,7 @@ const RouteComponent = () => {
 export const Route = createFileRoute("/app/decks")({
 	validateSearch: (search) => deckSearchSchema.parse(search),
 	loader: () => {
-		return getAllDecks();
+		return getAllDecks({ data: { includeCards: false } });
 	},
 	component: RouteComponent,
 });
