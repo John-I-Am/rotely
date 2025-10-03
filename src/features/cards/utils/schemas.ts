@@ -21,3 +21,11 @@ export const NewCardInputSchema = z.object({
 	deckId: z.cuid(),
 	content: CardContentSchema,
 });
+
+export const UpdateCardInputSchema = z
+	.object({
+		cardId: z.cuid(),
+		content: CardContentSchema.optional(),
+		level: z.number().min(1).max(5).optional(),
+	})
+	.strict();

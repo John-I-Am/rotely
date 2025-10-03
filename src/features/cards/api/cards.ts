@@ -1,8 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getAuthUser } from "@/features/auth/api/users";
+import dayjs from "@/lib/dayjs";
 import prisma from "@/lib/prisma/prisma";
 import { cuidSchema } from "@/lib/zod/schemas";
-import { NewCardInputSchema } from "../utils/schemas";
+import { getNextReviewDate } from "../utils/reviewIntervals";
+import { NewCardInputSchema, UpdateCardInputSchema } from "../utils/schemas";
 
 export const getCard = createServerFn({ method: "GET" })
 	.validator((data) => cuidSchema.parse(data))
@@ -33,14 +35,22 @@ export const createCard = createServerFn({ method: "POST" })
 	});
 
 export const updateCard = createServerFn({ method: "POST" })
-	.validator((data) => NewCardInputSchema.parse(data))
+	.validator((data) => UpdateCardInputSchema.parse(data))
 	.handler(async ({ data }) => {
+		const { cardId, ...updateData } = data;
+
+		const nextReview = updateData.level
+			? getNextReviewDate(updateData.level)
+			: undefined;
+
 		const updatedCard = await prisma.card.update({
 			where: {
-				id: data.deckId,
+				id: cardId,
 			},
 			data: {
-				content: data.content,
+				...updateData,
+				...(nextReview && { reviewAt: nextReview }),
+				reviewedAt: { push: dayjs().utc().toDate() },
 			},
 		});
 
