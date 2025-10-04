@@ -1,0 +1,47 @@
+.container {
+  padding: var(--mantine-spacing-xs);
+  border-radius: var(--mantine-radius-lg);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  p:last-of-type {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+  }
+
+  &:hover {
+    background-color: var(--mantine-color-blue-1);
+    transform: scale(1.05);
+
+    p:last-of-type {
+      opacity: 1;
+    }
+  }
+}
+
+.level {
+  width: 1rem;
+  height: .25rem;
+  border-radius: var(--mantine-radius-sm);
+  background:  light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-9));
+}
+
+.level-1 {
+  background:  var(--mantine-color-orange-5);
+}
+
+.level-2 {
+  background:  var(--mantine-color-blue-3);
+}
+
+.level-3 {
+  background:  var(--mantine-color-blue-7);
+}
+
+.level-4 {
+  background:  var(--mantine-color-blue-9);
+}
+
+.level-5 {
+  background:  var(--mantine-color-green-4);
+}
+ 
