@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CardTable } from "@/features/cards/components/CardTable/CardTable";
 import { getDeck } from "@/features/decks/api/decks";
 import { DeckEditor } from "@/features/decks/components/DeckEditor/DeckEditor";
+import type { DeckWithCards } from "@/features/decks/types";
 
 export const Route = createFileRoute("/app/decks_/$deckId")({
 	component: RouteComponent,
@@ -10,13 +11,16 @@ export const Route = createFileRoute("/app/decks_/$deckId")({
 
 function RouteComponent() {
 	const { deckId } = Route.useParams();
-	const { title, description }: { title: string; description: string } =
-		Route.useLoaderData();
+	const deck: DeckWithCards = Route.useLoaderData();
 
 	return (
 		<div>
-			<DeckEditor id={deckId} title={title} description={description} />
-			<CardTable deckId={deckId} />
+			<DeckEditor
+				id={deckId}
+				title={deck.title}
+				description={deck.description ?? ""}
+			/>
+			<CardTable deckId={deckId} cards={deck.cards} />
 		</div>
 	);
 }

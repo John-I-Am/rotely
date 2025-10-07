@@ -31,6 +31,9 @@ export const getDeck = createServerFn({ method: "GET" })
 			where: {
 				id: data.id,
 			},
+			include: {
+				cards: true,
+			},
 		});
 
 		return deck;
