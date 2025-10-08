@@ -2,14 +2,14 @@
   perspective: 1000px;
   padding: 0;
   margin: 0;
+  aspect-ratio: 16 / 9;
+  width: 100%;
 }
 
 .card {
   background-color: light-dark(white, var(--mantine-color-dark-5));
   height: 100%;
   width: 100%;
-  min-height: 12.5rem;
-  min-width: 25rem;
   border-radius: var(--mantine-radius-xl);
   transition: transform 0.8s;
   transform-style: preserve-3d;
