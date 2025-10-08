@@ -1,6 +1,6 @@
 import { Container, Group, Stack, Text } from "@mantine/core";
 import cx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LevelDisplay } from "../LevelDisplay/LevelDisplay";
 import classes from "./FlashCard.module.css";
 
@@ -13,6 +13,11 @@ type FlashCardProps = {
 
 export const FlashCard = ({ id, front, back, level }: FlashCardProps) => {
 	const [flipped, setFlipped] = useState<boolean>(false);
+
+	// This resets flip state on card change
+	useEffect(() => {
+		setFlipped(false);
+	}, [id]);
 
 	const renderHeader = (label: string) => (
 		<Group className={classes.header}>
