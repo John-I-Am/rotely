@@ -1,0 +1,5 @@
+.container {
+    background-color: light-dark(white, var(--mantine-color-dark-5));
+    border-radius: var(--mantine-spacing-sm);
+    padding: var(--mantine-spacing-sm);
+}
