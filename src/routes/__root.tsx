@@ -4,6 +4,8 @@ import "@mantine/core/styles.css";
 import "@/styles.css";
 
 import { MantineProvider, mantineHtmlProps } from "@mantine/core";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
 	createRootRoute,
 	HeadContent,
@@ -21,7 +23,7 @@ const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
 				<HeadContent />
 			</head>
 			<body>
-				<MantineProvider theme={theme}> {children} </MantineProvider>
+				{children}
 				<Scripts />
 			</body>
 		</html>
@@ -29,9 +31,15 @@ const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
 };
 
 const RootComponent = () => {
+	const queryClient = new QueryClient();
 	return (
 		<RootDocument>
-			<Outlet />
+			<QueryClientProvider client={queryClient}>
+				<MantineProvider theme={theme}>
+					<Outlet />
+				</MantineProvider>
+				<ReactQueryDevtools initialIsOpen={false} />
+			</QueryClientProvider>
 		</RootDocument>
 	);
 };
