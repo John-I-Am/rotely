@@ -1,3 +1,4 @@
+import { Stack } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import { CardTable } from "@/features/cards/components/CardTable/CardTable";
 import { getDeck } from "@/features/decks/api/decks";
@@ -14,13 +15,13 @@ function RouteComponent() {
 	const deck: DeckWithCards = Route.useLoaderData();
 
 	return (
-		<div>
+		<Stack gap={"xl"}>
 			<DeckEditor
 				id={deckId}
 				title={deck.title}
 				description={deck.description ?? ""}
 			/>
 			<CardTable deckId={deckId} cards={deck.cards} />
-		</div>
+		</Stack>
 	);
 }

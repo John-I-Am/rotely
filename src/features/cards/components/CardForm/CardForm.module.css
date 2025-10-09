@@ -1,0 +1,9 @@
+.container {
+  max-width: 48rem;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+}

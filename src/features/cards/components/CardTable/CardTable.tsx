@@ -1,24 +1,10 @@
-import { Box, Button, Checkbox, Stack, Table, Text } from "@mantine/core";
+import { Button, Checkbox, Group, Stack, Table, Text } from "@mantine/core";
+import { Link } from "@tanstack/react-router";
 import cx from "clsx";
 import { useState } from "react";
 import type { Card } from "@/generated/prisma/client";
 import dayjs from "@/lib/dayjs";
-import { createCard } from "../../api/cards";
 import classes from "./CardTable.module.css";
-
-// TEMPORARY HELPER FUNCTION TO CREATE CARDS FOR RESTING
-function randomText(prefix: string) {
-	const chars =
-		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	let text = "";
-	const length = 8; // change this to make it longer
-
-	for (let i = 0; i < length; i++) {
-		text += chars.charAt(Math.floor(Math.random() * chars.length));
-	}
-
-	return `${prefix}: ${text}`;
-}
 
 type CardTableProps = {
 	deckId: string;
@@ -27,19 +13,6 @@ type CardTableProps = {
 
 export const CardTable = ({ deckId, cards }: CardTableProps) => {
 	const [selection, setSelection] = useState<string[]>(["1"]);
-
-	const handleCreate = async () => {
-		await createCard({
-			data: {
-				deckId,
-				content: {
-					type: "text",
-					front: randomText("Randomized front"),
-					back: randomText("Randomized back"),
-				},
-			},
-		});
-	};
 
 	const toggleRow = (id: string) => {
 		setSelection((current) =>
@@ -99,8 +72,12 @@ export const CardTable = ({ deckId, cards }: CardTableProps) => {
 	});
 
 	return (
-		<Stack h={"100%"} className={classes.wrapper}>
-			<Button onClick={handleCreate}>Create new Card with random values</Button>
+		<Stack className={classes.wrapper}>
+			<Group>
+				<Button component={Link} to="/app/decks/$deckId/card">
+					New Card
+				</Button>
+			</Group>
 
 			<Table verticalSpacing="sm">
 				<Table.Thead>

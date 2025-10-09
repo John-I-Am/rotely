@@ -21,6 +21,7 @@ import { Route as AppSettingsRouteImport } from './routes/app/settings'
 import { Route as AppDecksRouteImport } from './routes/app/decks'
 import { Route as AppDashboardRouteImport } from './routes/app/dashboard'
 import { Route as AppDecksDeckIdRouteImport } from './routes/app/decks_.$deckId'
+import { Route as AppDecksDeckIdCardChar123CardIdChar125RouteImport } from './routes/app/decks_.$deckId_.card.{-$cardId}'
 import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
 
 const rootServerRouteImport = createServerRootRoute()
@@ -75,6 +76,12 @@ const AppDecksDeckIdRoute = AppDecksDeckIdRouteImport.update({
   path: '/decks/$deckId',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppDecksDeckIdCardChar123CardIdChar125Route =
+  AppDecksDeckIdCardChar123CardIdChar125RouteImport.update({
+    id: '/decks_/$deckId_/card/{-$cardId}',
+    path: '/decks/$deckId/card/{-$cardId}',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -92,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/app/study': typeof AppStudyRoute
   '/app/': typeof AppIndexRoute
   '/app/decks/$deckId': typeof AppDecksDeckIdRoute
+  '/app/decks/$deckId/card/{-$cardId}': typeof AppDecksDeckIdCardChar123CardIdChar125Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -103,6 +111,7 @@ export interface FileRoutesByTo {
   '/app/study': typeof AppStudyRoute
   '/app': typeof AppIndexRoute
   '/app/decks/$deckId': typeof AppDecksDeckIdRoute
+  '/app/decks/$deckId/card/{-$cardId}': typeof AppDecksDeckIdCardChar123CardIdChar125Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +125,7 @@ export interface FileRoutesById {
   '/app/study': typeof AppStudyRoute
   '/app/': typeof AppIndexRoute
   '/app/decks_/$deckId': typeof AppDecksDeckIdRoute
+  '/app/decks_/$deckId_/card/{-$cardId}': typeof AppDecksDeckIdCardChar123CardIdChar125Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/app/study'
     | '/app/'
     | '/app/decks/$deckId'
+    | '/app/decks/$deckId/card/{-$cardId}'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/app/study'
     | '/app'
     | '/app/decks/$deckId'
+    | '/app/decks/$deckId/card/{-$cardId}'
   id:
     | '__root__'
     | '/'
@@ -153,6 +165,7 @@ export interface FileRouteTypes {
     | '/app/study'
     | '/app/'
     | '/app/decks_/$deckId'
+    | '/app/decks_/$deckId_/card/{-$cardId}'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -255,6 +268,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDecksDeckIdRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/decks_/$deckId_/card/{-$cardId}': {
+      id: '/app/decks_/$deckId_/card/{-$cardId}'
+      path: '/decks/$deckId/card/{-$cardId}'
+      fullPath: '/app/decks/$deckId/card/{-$cardId}'
+      preLoaderRoute: typeof AppDecksDeckIdCardChar123CardIdChar125RouteImport
+      parentRoute: typeof AppRouteRoute
+    }
   }
 }
 declare module '@tanstack/react-start/server' {
@@ -276,6 +296,7 @@ interface AppRouteRouteChildren {
   AppStudyRoute: typeof AppStudyRoute
   AppIndexRoute: typeof AppIndexRoute
   AppDecksDeckIdRoute: typeof AppDecksDeckIdRoute
+  AppDecksDeckIdCardChar123CardIdChar125Route: typeof AppDecksDeckIdCardChar123CardIdChar125Route
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
@@ -285,6 +306,8 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppStudyRoute: AppStudyRoute,
   AppIndexRoute: AppIndexRoute,
   AppDecksDeckIdRoute: AppDecksDeckIdRoute,
+  AppDecksDeckIdCardChar123CardIdChar125Route:
+    AppDecksDeckIdCardChar123CardIdChar125Route,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
