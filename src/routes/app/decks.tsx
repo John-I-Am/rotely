@@ -1,8 +1,8 @@
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { getAllDecks } from "@/features/decks/api/decks";
+import { decksQueryOptions } from "@/features/decks/api/fetchDecks";
 import { DeckList } from "@/features/decks/components/DeckList/DeckList";
-import type { Deck } from "@/generated/prisma/client";
 
 const deckSearchSchema = z.object({
 	shared: z.boolean().catch(false).default(false),
@@ -11,16 +11,13 @@ const deckSearchSchema = z.object({
 type DeckSearch = z.infer<typeof deckSearchSchema>;
 
 const RouteComponent = () => {
-	const { shared } = Route.useSearch();
-	const decks: Deck[] = Route.useLoaderData();
-
+	// const { shared } = Route.useSearch();
+	const decksQuery = useSuspenseQuery(decksQueryOptions());
+	const decks = decksQuery.data;
 	return <DeckList decks={decks} />;
 };
 
 export const Route = createFileRoute("/app/decks")({
 	validateSearch: (search) => deckSearchSchema.parse(search),
-	loader: () => {
-		return getAllDecks({ data: { includeCards: false } });
-	},
 	component: RouteComponent,
 });

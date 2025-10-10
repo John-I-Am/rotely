@@ -4,7 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { IconWrapper } from "@/components/IconWrapper/IconWrapper";
 import type { Deck } from "@/generated/prisma/client";
-import { createDeck } from "../../api/decks";
+import { useCreateDeckMutation } from "../../api/createDeck";
 import { DeckDisplay } from "../DeckDisplay/DeckDisplay";
 
 type DeckListProps = {
@@ -12,7 +12,7 @@ type DeckListProps = {
 };
 
 export const DeckList = ({ decks }: DeckListProps) => {
-	const [pending, setPending] = useState<boolean>(false);
+	const { mutate: createDeck, isPending } = useCreateDeckMutation();
 	const navigate = useNavigate({ from: "/app/decks" });
 
 	const [searchTerm, setSearchTerm] = useState<string>("");
@@ -20,22 +20,24 @@ export const DeckList = ({ decks }: DeckListProps) => {
 		deck.title.includes(searchTerm),
 	);
 
-	const handleCreate = async () => {
-		setPending(true);
-		const newDeck = await createDeck({
-			data: { title: "untitled" },
-		});
-
-		navigate({
-			to: "/app/decks/$deckId",
-			params: { deckId: newDeck?.id } as any,
-		});
+	const handleCreate = () => {
+		createDeck(
+			{ title: "untitled" },
+			{
+				onSuccess: (newDeck) => {
+					navigate({
+						to: "/app/decks/$deckId",
+						params: { deckId: newDeck?.id },
+					});
+				},
+			},
+		);
 	};
 
 	return (
 		<Stack>
 			<Group>
-				<Button loading={pending} onClick={() => handleCreate()}>
+				<Button loading={isPending} onClick={handleCreate}>
 					New Deck
 				</Button>
 				<TextInput

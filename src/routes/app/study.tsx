@@ -1,4 +1,5 @@
 import { Stack } from "@mantine/core";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { FlashCard } from "@/features/cards/components/FlashCard/FlashCard";
 import { Toolbar } from "@/features/cards/components/Toolbar/Toobar";
@@ -6,18 +7,17 @@ import {
 	filterCardsDue,
 	getAllCardsFromDecks,
 } from "@/features/cards/utils/queries";
-import { getAllDecks } from "@/features/decks/api/decks";
-
+import { decksQueryOptions } from "@/features/decks/api/fetchDecks";
 import type { DeckWithCards } from "@/features/decks/types";
 
 export const Route = createFileRoute("/app/study")({
 	component: RouteComponent,
-	loader: async () => await getAllDecks({ data: { includeCards: true } }),
 });
 
 function RouteComponent() {
-	const decks: DeckWithCards[] = Route.useLoaderData();
-	const cards = getAllCardsFromDecks(decks);
+	const decksQuery = useSuspenseQuery(decksQueryOptions());
+	const decks = decksQuery.data;
+	const cards = getAllCardsFromDecks(decks as DeckWithCards[]);
 	const cardsDue = filterCardsDue(cards);
 
 	return (

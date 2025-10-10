@@ -3,6 +3,7 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { NavBurger } from "@/components/NavBurger/NavBurger";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { getAuthUser } from "@/features/auth/api/users";
+import { decksQueryOptions } from "@/features/decks/api/fetchDecks";
 
 const AppLayoutComponent = () => {
 	return (
@@ -24,5 +25,7 @@ export const Route = createFileRoute("/app")({
 			});
 		}
 	},
+	loader: ({ context }: any) =>
+		context.queryClient.ensureQueryData(decksQueryOptions()),
 	component: AppLayoutComponent,
 });

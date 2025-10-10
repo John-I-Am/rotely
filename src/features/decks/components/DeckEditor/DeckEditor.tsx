@@ -1,10 +1,8 @@
 import { Group, Loader, Stack, Text, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useRouter } from "@tanstack/react-router";
 import { zodResolver } from "mantine-form-zod-resolver";
-import { useState } from "react";
 import { z } from "zod";
-import { updateDeck } from "../../api/decks";
+import { useUpdateDeckMutation } from "../../api/updateDeck";
 import classes from "./DeckEditor.module.css";
 
 type DeckEditorProps = {
@@ -14,8 +12,7 @@ type DeckEditorProps = {
 };
 
 export const DeckEditor = ({ id, title, description }: DeckEditorProps) => {
-	const router = useRouter();
-	const [pending, setPending] = useState<boolean>(false);
+	const { mutate: updateDeck, isPending } = useUpdateDeckMutation();
 
 	const formSchema = z.object({
 		title: z.string().max(12),
@@ -33,12 +30,7 @@ export const DeckEditor = ({ id, title, description }: DeckEditorProps) => {
 
 	const handleOnSubmit = async () => {
 		const { title, description } = form.getValues();
-
-		setPending(true);
-		await updateDeck({ data: { id, title, description } }).then(() => {
-			setPending(false);
-		});
-		router.invalidate();
+		updateDeck({ id, title, description });
 	};
 
 	return (
@@ -58,7 +50,7 @@ export const DeckEditor = ({ id, title, description }: DeckEditorProps) => {
 					placeholder="untitled"
 				/>
 				<Stack gap="0" h={20}>
-					{pending && (
+					{isPending && (
 						<>
 							<Text fz="xs" c="dimmed">
 								Saving data...

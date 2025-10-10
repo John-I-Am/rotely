@@ -8,11 +8,10 @@ import {
 	Tooltip,
 } from "@mantine/core";
 import { IconEdit, IconPacman, IconTrash } from "@tabler/icons-react";
-import { Link, useRouter } from "@tanstack/react-router";
-import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { IconWrapper } from "@/components/IconWrapper/IconWrapper";
 import { Route as DeckRouter } from "@/routes/app/decks_.$deckId";
-import { deleteDeck } from "../../api/decks";
+import { useDeleteDeckMutation } from "../../api/deleteDeck";
 
 type DeckDisplayProps = {
 	id: string;
@@ -20,16 +19,10 @@ type DeckDisplayProps = {
 	description: string;
 };
 export const DeckDisplay = ({ id, title, description }: DeckDisplayProps) => {
-	const router = useRouter();
-
-	// surely theres a better way to handle pendingStates?
-	const [isPending, setIsPending] = useState<boolean>(false);
+	const { mutate: deleteDeck, isPending } = useDeleteDeckMutation();
 
 	const handleDelete = async () => {
-		setIsPending(true);
-		await deleteDeck({ data: { id: id } });
-		await router.invalidate();
-		setIsPending(false);
+		deleteDeck({ id });
 	};
 
 	return (
