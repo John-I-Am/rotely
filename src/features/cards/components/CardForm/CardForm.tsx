@@ -4,7 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { zodResolver } from "mantine-form-zod-resolver";
 import { useState } from "react";
 import z from "zod";
-import { createCard } from "../../api/cards";
+import { useCreateCardMutation } from "../../api/createCard";
 import type { CardContent, CardType } from "../../types";
 import classes from "./CardForm.module.css";
 
@@ -14,8 +14,9 @@ type CardFormProps =
 
 export const CardForm = ({ deckId, cardId, content }: CardFormProps) => {
 	const navigate = useNavigate();
-	const [pending, setPending] = useState<boolean>(false);
 	const [type, setType] = useState<CardType>(content?.type ?? "text");
+
+	const { mutate: createCard, isPending } = useCreateCardMutation();
 
 	const formSchema = z.object({
 		front: z.string().max(225),
@@ -32,16 +33,9 @@ export const CardForm = ({ deckId, cardId, content }: CardFormProps) => {
 		validate: zodResolver(formSchema),
 	});
 
-	const handleSubmit = async ({
-		front,
-		back,
-	}: {
-		front: string;
-		back: string;
-	}) => {
-		setPending(true);
-		await createCard({
-			data: {
+	const handleSubmit = ({ front, back }: { front: string; back: string }) => {
+		createCard(
+			{
 				deckId,
 				content: {
 					type: "text",
@@ -49,12 +43,15 @@ export const CardForm = ({ deckId, cardId, content }: CardFormProps) => {
 					back,
 				},
 			},
-		});
-
-		navigate({
-			to: "/app/decks/$deckId",
-			params: (prev) => ({ ...prev }),
-		});
+			{
+				onSuccess: () => {
+					navigate({
+						to: "/app/decks/$deckId",
+						params: (prev: any) => ({ ...prev }),
+					});
+				},
+			},
+		);
 	};
 
 	return (
@@ -85,7 +82,7 @@ export const CardForm = ({ deckId, cardId, content }: CardFormProps) => {
 					radius="lg"
 					rows={8}
 				/>
-				<Button type="submit" loading={pending}>
+				<Button type="submit" loading={isPending}>
 					Create
 				</Button>
 			</Stack>

@@ -1,7 +1,5 @@
 import { Button, Group, Progress, Text } from "@mantine/core";
-import { useRouter } from "@tanstack/react-router";
-import { useState } from "react";
-import { updateCard } from "../../api/cards";
+import { useUpdateCardMutation } from "../../api/updateCard";
 import classes from "./Toolbar.module.css";
 
 type ToolbarProps = {
@@ -10,21 +8,14 @@ type ToolbarProps = {
 };
 
 export const Toolbar = ({ cardId, level }: ToolbarProps) => {
-	const router = useRouter();
-	const [pending, setPending] = useState<boolean>(false);
+	const { mutate: updateCard, isPending } = useUpdateCardMutation();
 
-	const handleCorrect = async () => {
-		setPending(true);
-		await updateCard({ data: { cardId, level: level === 5 ? 5 : level + 1 } });
-		await router.invalidate({ sync: true });
-		setPending(false);
+	const handleCorrect = () => {
+		updateCard({ cardId, level: level === 5 ? 5 : level + 1 });
 	};
 
 	const handleIncorrect = async () => {
-		setPending(true);
-		await updateCard({ data: { cardId, level: level === 1 ? 1 : level - 1 } });
-		await router.invalidate({ sync: true });
-		setPending(false);
+		updateCard({ cardId, level: level === 5 ? 5 : level + 1 });
 	};
 
 	return (
@@ -35,10 +26,10 @@ export const Toolbar = ({ cardId, level }: ToolbarProps) => {
 				<Text>50</Text>
 			</Group>
 			<Group>
-				<Button loading={pending} onClick={handleCorrect}>
+				<Button loading={isPending} onClick={handleCorrect}>
 					correct
 				</Button>
-				<Button loading={pending} onClick={handleIncorrect}>
+				<Button loading={isPending} onClick={handleIncorrect}>
 					incorrect
 				</Button>
 			</Group>
