@@ -4,7 +4,7 @@ import "@mantine/core/styles.css";
 import "@/styles.css";
 
 import { MantineProvider, mantineHtmlProps } from "@mantine/core";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
 	createRootRoute,
@@ -14,6 +14,7 @@ import {
 } from "@tanstack/react-router";
 
 import type { ReactNode } from "react";
+import { queryClient } from "@/lib/query/queryClient";
 import { theme } from "@/theme";
 
 const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
@@ -31,7 +32,6 @@ const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
 };
 
 const RootComponent = () => {
-	const queryClient = new QueryClient();
 	return (
 		<RootDocument>
 			<QueryClientProvider client={queryClient}>
