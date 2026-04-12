@@ -1,0 +1,10 @@
+.wrapper {
+  overflow: scroll;
+  height: 100%;
+  gap: var(--mantine-spacing-lg)
+
+}
+
+.rowSelected {
+  background-color: var(--mantine-color-blue-light);
+}

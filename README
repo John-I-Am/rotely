@@ -1,0 +1,13 @@
+## Getting Started
+
+npm install
+
+## Environment Variables
+
+| Variable             | Description                           | Example                                  |
+| -------------------- | ------------------------------------- | ---------------------------------------- |
+| `TARGET`             | Environment target (e.g., dev, prod)  | `dev`                                    |
+| `DATABASE_URL`       | PostgreSQL database address           | `postgres://user:pass@localhost:5432/db` |
+| `BETTER_AUTH_SECRET` | Secret key for Better Auth encryption | `your-secret-key`                        |
+| `BETTER_AUTH_URL`    | Base URL                              | `http://localhost:3000                   |
+

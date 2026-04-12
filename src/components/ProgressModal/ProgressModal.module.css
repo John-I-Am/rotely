@@ -1,0 +1,5 @@
+.accordian-item {
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-9));
+  border-radius: var(--mantine-radius-md);
+  margin-top: 1rem;
+}

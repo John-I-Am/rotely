@@ -9,38 +9,211 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AppStudyRouteImport } from './routes/app/study'
+import { Route as AppSettingsRouteImport } from './routes/app/settings'
+import { Route as AppDecksRouteImport } from './routes/app/decks'
+import { Route as AppDashboardRouteImport } from './routes/app/dashboard'
+import { Route as AppDecksDeckIdRouteImport } from './routes/app/decks_.$deckId'
+import { Route as ApiTestsResetRouteImport } from './routes/api/tests/reset'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AppDecksDeckIdCardChar123CardIdChar125RouteImport } from './routes/app/decks_.$deckId_.card.{-$cardId}'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRouteRoute = AppRouteRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppStudyRoute = AppStudyRouteImport.update({
+  id: '/study',
+  path: '/study',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppDecksRoute = AppDecksRouteImport.update({
+  id: '/decks',
+  path: '/decks',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppDecksDeckIdRoute = AppDecksDeckIdRouteImport.update({
+  id: '/decks_/$deckId',
+  path: '/decks/$deckId',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const ApiTestsResetRoute = ApiTestsResetRouteImport.update({
+  id: '/api/tests/reset',
+  path: '/api/tests/reset',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppDecksDeckIdCardChar123CardIdChar125Route =
+  AppDecksDeckIdCardChar123CardIdChar125RouteImport.update({
+    id: '/decks_/$deckId_/card/{-$cardId}',
+    path: '/decks/$deckId/card/{-$cardId}',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/decks': typeof AppDecksRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/study': typeof AppStudyRoute
+  '/app/': typeof AppIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/tests/reset': typeof ApiTestsResetRoute
+  '/app/decks/$deckId': typeof AppDecksDeckIdRoute
+  '/app/decks/$deckId/card/{-$cardId}': typeof AppDecksDeckIdCardChar123CardIdChar125Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/decks': typeof AppDecksRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/study': typeof AppStudyRoute
+  '/app': typeof AppIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/tests/reset': typeof ApiTestsResetRoute
+  '/app/decks/$deckId': typeof AppDecksDeckIdRoute
+  '/app/decks/$deckId/card/{-$cardId}': typeof AppDecksDeckIdCardChar123CardIdChar125Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/decks': typeof AppDecksRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/study': typeof AppStudyRoute
+  '/app/': typeof AppIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/tests/reset': typeof ApiTestsResetRoute
+  '/app/decks_/$deckId': typeof AppDecksDeckIdRoute
+  '/app/decks_/$deckId_/card/{-$cardId}': typeof AppDecksDeckIdCardChar123CardIdChar125Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/login'
+    | '/signup'
+    | '/app/dashboard'
+    | '/app/decks'
+    | '/app/settings'
+    | '/app/study'
+    | '/app/'
+    | '/api/auth/$'
+    | '/api/tests/reset'
+    | '/app/decks/$deckId'
+    | '/app/decks/$deckId/card/{-$cardId}'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/app/dashboard'
+    | '/app/decks'
+    | '/app/settings'
+    | '/app/study'
+    | '/app'
+    | '/api/auth/$'
+    | '/api/tests/reset'
+    | '/app/decks/$deckId'
+    | '/app/decks/$deckId/card/{-$cardId}'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/login'
+    | '/signup'
+    | '/app/dashboard'
+    | '/app/decks'
+    | '/app/settings'
+    | '/app/study'
+    | '/app/'
+    | '/api/auth/$'
+    | '/api/tests/reset'
+    | '/app/decks_/$deckId'
+    | '/app/decks_/$deckId_/card/{-$cardId}'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRouteRoute: typeof AppRouteRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  SignupRoute: typeof SignupRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiTestsResetRoute: typeof ApiTestsResetRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +221,114 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/study': {
+      id: '/app/study'
+      path: '/study'
+      fullPath: '/app/study'
+      preLoaderRoute: typeof AppStudyRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/decks': {
+      id: '/app/decks'
+      path: '/decks'
+      fullPath: '/app/decks'
+      preLoaderRoute: typeof AppDecksRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/dashboard': {
+      id: '/app/dashboard'
+      path: '/dashboard'
+      fullPath: '/app/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/decks_/$deckId': {
+      id: '/app/decks_/$deckId'
+      path: '/decks/$deckId'
+      fullPath: '/app/decks/$deckId'
+      preLoaderRoute: typeof AppDecksDeckIdRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/api/tests/reset': {
+      id: '/api/tests/reset'
+      path: '/api/tests/reset'
+      fullPath: '/api/tests/reset'
+      preLoaderRoute: typeof ApiTestsResetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/decks_/$deckId_/card/{-$cardId}': {
+      id: '/app/decks_/$deckId_/card/{-$cardId}'
+      path: '/decks/$deckId/card/{-$cardId}'
+      fullPath: '/app/decks/$deckId/card/{-$cardId}'
+      preLoaderRoute: typeof AppDecksDeckIdCardChar123CardIdChar125RouteImport
+      parentRoute: typeof AppRouteRoute
+    }
   }
 }
 
+interface AppRouteRouteChildren {
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppDecksRoute: typeof AppDecksRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppStudyRoute: typeof AppStudyRoute
+  AppIndexRoute: typeof AppIndexRoute
+  AppDecksDeckIdRoute: typeof AppDecksDeckIdRoute
+  AppDecksDeckIdCardChar123CardIdChar125Route: typeof AppDecksDeckIdCardChar123CardIdChar125Route
+}
+
+const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppDashboardRoute: AppDashboardRoute,
+  AppDecksRoute: AppDecksRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppStudyRoute: AppStudyRoute,
+  AppIndexRoute: AppIndexRoute,
+  AppDecksDeckIdRoute: AppDecksDeckIdRoute,
+  AppDecksDeckIdCardChar123CardIdChar125Route:
+    AppDecksDeckIdCardChar123CardIdChar125Route,
+}
+
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRouteRoute: AppRouteRouteWithChildren,
+  LoginRoute: LoginRoute,
+  SignupRoute: SignupRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiTestsResetRoute: ApiTestsResetRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}

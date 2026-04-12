@@ -1,0 +1,18 @@
+.progress {
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-9));
+  cursor: pointer;
+  
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.progress-bar {
+  background-color: var(--mantine-color-gray-4); 
+}
+
+.modal-title {
+  font-size: var(--mantine-font-size-xl);
+  width: 100%;
+  text-align: center;
+}

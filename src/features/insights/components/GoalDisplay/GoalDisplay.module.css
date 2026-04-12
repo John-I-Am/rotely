@@ -1,0 +1,7 @@
+.text {
+  color: var(--mantine-primary-color-filled);
+}
+
+.modal-title {
+  font-size: var(--mantine-font-size-xl);
+}

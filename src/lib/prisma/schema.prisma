@@ -1,0 +1,136 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Prisma naming conventions: https://www.prisma.io/docs/orm/reference/prisma-schema-reference#naming-conventions-1
+
+generator client {
+  provider = "prisma-client"
+  output   = "../../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+generator json {
+  provider  = "prisma-json-types-generator"
+  namespace = "PrismaJson"
+  allowAny  = false
+}
+
+model Deck {
+  id          String   @id @default(cuid())
+  title       String   
+  description String?
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  cards       Card[]
+  published   Boolean  @default(false)
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([id, title])
+  @@map("deck")
+}
+
+model Card {
+  id         String       @id @default(cuid())
+  /// [CardContentType]
+  content    Json
+  level      Int          @default(1)
+  reviewedAt CardReview[]
+  reviewAt   DateTime     @default(now())
+  createdAt  DateTime     @default(now()) @db.Timestamp(6)
+  updatedAt  DateTime     @default(now()) @updatedAt
+  deckId     String
+  deck       Deck         @relation(fields: [deckId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  authorId   String
+  author     User         @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model CardReview {
+  id         String       @id @default(cuid())
+  cardId     String
+  card       Card         @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviewedAt DateTime     @default(now())
+  sessionId  String
+  session    UserActivity @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id             String         @id @default(cuid())
+  name           String?        @db.VarChar(255)
+  email          String         @unique @db.VarChar(255)
+  emailVerified  Boolean        @default(false)
+  image          String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @default(now()) @updatedAt
+  /// [UserPreferenceType]
+  preferences    Json           @default("{}")
+  sessions       Session[]
+  accounts       Account[]
+  decks          Deck[]
+  cards          Card[]
+  cardReviews    CardReview[]
+  UserActivities UserActivity[]
+
+  @@map("user")
+}
+
+model UserActivity {
+  id            String       @id @default(cuid())
+  date          DateTime // Normalize each date to midnight utc before pushing to db!!!!
+  goal          Int
+  reviewedCards CardReview[]
+  userId        String
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([userId, date])
+  @@map("user_activity")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
+}

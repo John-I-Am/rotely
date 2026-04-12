@@ -1,0 +1,52 @@
+.header {
+  pointer-events: none;
+}
+
+.header-control {
+  display: none;
+}
+
+.month {
+  width: 100%;
+}
+
+.day-wrapper {
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.day {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid var(--mantine-color-gray-2);
+  position: relative;
+}
+
+.day-current {
+  background: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-9));
+  border-radius: 4px;
+}
+
+.reviewed {
+  background-color: var(--mantine-color-blue-2);
+  border: none;
+
+  span {
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    width: 10px;
+    height: 1px;
+    border: 1px solid var(--mantine-color-blue-4);
+    border-radius: 4px;
+    transform: rotate(-45deg);
+    transform-origin: top right;
+  }
+}
+
+.modal-day-label {
+  font-size: var(--mantine-font-size-xl);
+  font-weight: 700;
+}
