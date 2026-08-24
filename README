@@ -2,6 +2,8 @@
 
 npm install
 
+don't forget to npx prisma sync after recreating db
+
 ## Environment Variables
 
 | Variable             | Description                           | Example                                  |
